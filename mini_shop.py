@@ -44,7 +44,7 @@ mazda6 =Thing("Мазда 6", 100000, "Мазда 6 150 к.с.", [1578, "kg"], 5
 #My_shop.get_all()
 #print(pen.get_cost())
 #print(perfume.description)
-#print(all_thing[0].cost)
+#print(My_shop.all_thing[0].cost)
 #print(pen)
 
 
