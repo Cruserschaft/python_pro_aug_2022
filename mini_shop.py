@@ -7,9 +7,13 @@ class Shop:
 
         
     def get_all(self):
+        result = ""
         if len(self.all_thing)!= 0:
             for i in self.all_thing:
-                print(i.name+" - "+str(i.amount)+" шт.")
+                result+= i.name+" - "+str(i.amount)+" шт.\n"
+
+            return result
+
 
 My_shop = Shop(0)
 
@@ -41,7 +45,7 @@ pen = Thing("Ручка", 10, "Масляна ручка, дуже добре п
 perfume = Thing("Духи", 120, "А пахне, наче газовий гігант Юпітер", [100, "g"], 31)
 mazda6 =Thing("Мазда 6", 100000, "Мазда 6 150 к.с.", [1578, "kg"], 5)
 
-#My_shop.get_all()
+#print(My_shop.get_all())
 #print(pen.get_cost())
 #print(perfume.description)
 #print(My_shop.all_thing[0].cost)
@@ -78,7 +82,7 @@ class Buyer:
                         else:
                             self.purchases[item] = 1
                 else:
-                    "Вибачте, торва закінчився"
+                    print("Вибачте, торвар закінчився")
                 
             
     def to_buy(self):
