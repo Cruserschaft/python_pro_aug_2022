@@ -80,15 +80,14 @@ class Group:
 
     def get_all(self):
         res = f"Студенти групи {self.group_name}:\n"
-        for i in self.students_list:
-            res+=f"{i.name} {i.subname}\n"
-        return res
+        return res.join(map(str, self.students_list))
+
 
     def find(self, familie:str):
         for i in self.students_list:
             if i.subname == familie:
                 return i
-        return f"Не знайдено студента з прізвищем {familie}"
+        return None
     
     def del_stud(self, familie:str):
         if self.find(familie):
@@ -110,7 +109,7 @@ a = Group("group2")
 #print(a.find("Лютий"))
 #print(a.find("ААААААААААААА"))
 #print(a.del_stud("Лютий"))
-#print(a.get_all())
+print(a.get_all())
 
 
 #a.add_stud("Олексій", "Вишневський", "Олександрович", "03.02.1896")
