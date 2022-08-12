@@ -39,7 +39,7 @@ class Student(Person):
         self.my_group = my_group
 
     def __str__(self):
-        return f"Тип: Людина\nСпеціалізація: Студент\nІм'я: {self.name}\nПрізвище: {self.subname}\nГрупа: {self.my_group}"
+        return f"Студент: {self.name} {self.subname}\n"
 
 
 
@@ -80,7 +80,7 @@ class Group:
 
     def get_all(self):
         res = f"Студенти групи {self.group_name}:\n"
-        return res.join(map(str, self.students_list))
+        return res+"".join(map(str, self.students_list))
 
 
     def find(self, familie:str):
