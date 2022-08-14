@@ -21,3 +21,39 @@
 2022-08-14 09:23:44,511 - students - WARNING - Logger was start
 2022-08-14 09:25:37,816 - students - INFO - Logger was start
 2022-08-14 09:25:52,729 - students - INFO - Logger was start
+2022-08-14 09:40:27,751 - students - DEBUG - Logger was start
+2022-08-14 09:41:06,682 - students - DEBUG - Logger was start
+2022-08-14 09:41:13,651 - students - DEBUG - Logger was start
+2022-08-14 09:41:36,457 - students - DEBUG - Logger was start
+2022-08-14 09:41:36,465 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:00,320 - students - DEBUG - Logger was start
+2022-08-14 09:42:00,330 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:06,477 - students - DEBUG - Logger was start
+2022-08-14 09:42:06,488 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:06,494 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:37,982 - students - DEBUG - Logger was start
+2022-08-14 09:42:38,004 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:38,012 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:42,852 - students - DEBUG - Logger was start
+2022-08-14 09:42:42,861 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:42,867 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:48,447 - students - DEBUG - Logger was start
+2022-08-14 09:42:48,470 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:48,476 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:48,484 - students - WARNING - Студент Василь Серпень вже є в групі group2
+2022-08-14 09:42:48,488 - students - INFO - Додано студента Олексій Вишневський до групи group2
+2022-08-14 09:42:48,494 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:56,260 - students - DEBUG - Logger was start
+2022-08-14 09:42:56,270 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:56,277 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:42:56,283 - students - WARNING - Студент Василь Серпень вже є в групі group2
+2022-08-14 09:42:56,288 - students - INFO - Додано студента Олексій Вишневський до групи group2
+2022-08-14 09:42:56,293 - students - DEBUG - Створено группу студентів group2
+2022-08-14 09:44:10,620 - students - WARNING - Студент Василь Серпень вже є в групі group2
+2022-08-14 09:44:10,626 - students - INFO - Додано студента Олексій Вишневський до групи group2
+2022-08-14 09:44:34,413 - students - INFO - Видалено студента Забуга з групи group2
+2022-08-14 09:44:34,418 - students - WARNING - Студент Василь Серпень вже є в групі group2
+2022-08-14 09:44:34,421 - students - INFO - Додано студента Олексій Вишневський до групи group2
+2022-08-14 09:44:50,464 - students - INFO - Видалено студента Забуга з групи group2
+2022-08-14 09:44:50,467 - students - WARNING - Студент Василь Серпень вже є в групі group2
+2022-08-14 09:44:50,470 - students - INFO - Додано студента Олексій Вишневський до групи group2

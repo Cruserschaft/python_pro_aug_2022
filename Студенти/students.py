@@ -18,7 +18,6 @@ class Person:
 
     """
 
-
     
     def __init__(self, name:str, subname:str, parent:str, birthday:str):
         self.name = name
@@ -64,7 +63,7 @@ class Group:
         self.students_list = []
         self.get_stud(group)
         self.group_name = group
-        logging.debug(f"Створено группу студентів {self.group_name}")
+        
 
     def get_stud(self, group:str):
         list_stud = cursor.execute(f"SELECT * FROM {group}").fetchall()
@@ -87,7 +86,7 @@ class Group:
         if self.find(familie):
             cursor.execute(f"DELETE FROM {self.group_name} WHERE subname = '{familie}'")
             #con.commit() #Змінює файл бази данних після закриття
-            logging.info(f"Видалено студента {familie} з групи {self.group_name}")
+            logger.info(f"Видалено студента {familie} з групи {self.group_name}")
             self.__init__(self.group_name) #Перезавантаження групи зі змінами
             
     def add_stud(self, name:str, subname:str, parent:str, birthday:str):
@@ -95,25 +94,35 @@ class Group:
             if not self.find(subname):
                 cursor.execute(f"INSERT INTO {self.group_name} (name, subname, parent, birthday) VALUES ('{name}','{subname}','{parent}','{birthday}')")
                 #con.commit()
-                logging.info(f"Додано студента {name} {subname} до групи {self.group_name}")
+                logger.info(f"Додано студента {name} {subname} до групи {self.group_name}")
                 self.__init__(self.group_name)
             else:
-                logging.warning(f"Студент {name} {subname} вже є в групі {self.group_name}")
+                logger.warning(f"Студент {name} {subname} вже є в групі {self.group_name}")
         else:
-            logging.warning(f"Неможливо додати студента. Кількість місць - {settings.MAX_STUDENTS}")
+            logger.warning(f"Неможливо додати студента. Кількість місць - {settings.MAX_STUDENTS}")
         
                 
               
         
 def init_logger(name):
-    logging.basicConfig(level = logging.DEBUG)
+    global logger
     logger = logging.getLogger("students")
-    handler = logging.FileHandler(name)
-    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.info("Logger was start")
+    FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    logger.setLevel(logging.DEBUG)
+    sh = logging.StreamHandler()
+    sh.setFormatter(logging.Formatter(FORMAT))
+    sh.setLevel(logging.DEBUG)
+    fh = logging.FileHandler(name)
+    fh.setFormatter(logging.Formatter(FORMAT))
+    fh.setLevel(logging.INFO)
+    logger.addHandler(sh)
+    logger.addHandler(fh)
+    logger.debug("Logger was start")
 
+
+    
+    
+    
 init_logger(settings.LOGGING_FILE)
 
 
@@ -138,9 +147,9 @@ a = Group("group2")
 #print(b.find("Деркач"))
 
 
-#a.del_stud("Забуга")
-#a.add_stud("Василь", "Серпень", "Олекційович", "22.01.1978")
-#a.add_stud("Олексій", "Вишневський", "Олександрович", "03.02.1896")
+a.del_stud("Забуга")
+a.add_stud("Василь", "Серпень", "Олекційович", "22.01.1978")
+a.add_stud("Олексій", "Вишневський", "Олександрович", "03.02.1896")
 print(a.get_all())
 
 
