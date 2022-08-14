@@ -58,23 +58,23 @@ class Buyer:
 
     def to_purchase(self, item):
         for i in My_shop.all_thing:
-            if i == item:
-                if i.amount!=0:
-                    i.amount-=1
+            if i.amount==0:
+                return f"Вибачте, торвар закінчився"
+            i.amount-=1
 
-                    if len(self.purchases) == 0:
-                        self.purchases[item] = 1
-                        return f"{item.name} занесено до кошика"
+            if len(self.purchases) == 0:
+                self.purchases[item] = 1
+                return f"{item.name} занесено до кошика"
 
-                    else:
-                        if item in self.purchases:
-                            self.purchases[item]+=1
-                            return f"{item.name} занесено до кошика"
-                        else:
-                            self.purchases[item] = 1
-                            return f"{item.name} занесено до кошика"
+            else:
+                if item in self.purchases:
+                    self.purchases[item]+=1
+                    return f"{item.name} занесено до кошика"
                 else:
-                    return f"Вибачте, торвар закінчився"
+                    self.purchases[item] = 1
+                    return f"{item.name} занесено до кошика"
+
+                    
                 
             
     def to_buy(self):
@@ -95,11 +95,11 @@ class Buyer:
         all_cost = 0
         if len(self.purchases)==0:
             return f"У вас нет покупок"
-        else:
-            for i in self.purchases:
-                all_cost+=i.cost*self.purchases[i]
-                return f"{i.name} - {self.purchases[i]} шт."
-            return f"Загальна вартість - {all_cost}"
+        
+        for i in self.purchases:
+            all_cost+=i.cost*self.purchases[i]
+            return f"{i.name} - {self.purchases[i]} шт."
+        return f"Загальна вартість - {all_cost}"
         
 
         
