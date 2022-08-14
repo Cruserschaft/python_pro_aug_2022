@@ -1,7 +1,7 @@
 import sqlite3
 import random
 import settings
-import logging
+from logger import *
 
 
 con = sqlite3.connect("sqlite.db")
@@ -104,26 +104,7 @@ class Group:
                 
               
         
-def init_logger(name):
-    global logger
-    logger = logging.getLogger("students")
-    FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    logger.setLevel(logging.DEBUG)
-    sh = logging.StreamHandler()
-    sh.setFormatter(logging.Formatter(FORMAT))
-    sh.setLevel(logging.DEBUG)
-    fh = logging.FileHandler(name)
-    fh.setFormatter(logging.Formatter(FORMAT))
-    fh.setLevel(logging.INFO)
-    logger.addHandler(sh)
-    logger.addHandler(fh)
-    logger.debug("Logger was start")
 
-
-    
-    
-    
-init_logger(settings.LOGGING_FILE)
 
 
 

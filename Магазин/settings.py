@@ -1,2 +1,1 @@
-MAX_STUDENTS = 10
 LOG_FILE = "log.log"

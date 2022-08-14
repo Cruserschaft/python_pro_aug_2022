@@ -1,3 +1,6 @@
+import settings
+from logger import *
+
 
 class Shop:
     def __init__(self, my_money:int):
@@ -23,6 +26,9 @@ class Thing:
     def __init__(self, name:str, cost:int, description:str, weight:list, amount:int):
         self.name = name
         self.cost = cost
+        if not isinstance(self.cost, int|float) or self.cost<=0:
+            logger.warning(f"Неправильная ціна товару {self.name}")
+            raise ValueError(f"Неправильная ціна товару {self.name}")
         self.description = description
         self.weight = weight
         self.amount = amount
@@ -33,23 +39,6 @@ class Thing:
 
     def get_cost(self):
         return f"Ціна на {self.name} - {self.cost} гривень"
-
-
-
-
-
-
-
-
-pen = Thing("Ручка", 10, "Масляна ручка, дуже добре пише", [20, "g"], 153)
-perfume = Thing("Духи", 120, "А пахне, наче газовий гігант Юпітер", [100, "g"], 31)
-mazda6 =Thing("Мазда 6", 100000, "Мазда 6 150 к.с.", [1578, "kg"], 5)
-
-print(My_shop.get_all())
-print(pen.get_cost())
-print(perfume.description)
-print(My_shop.all_thing[0].cost)
-print(pen)
 
 
 
@@ -134,7 +123,24 @@ class Buyer:
     
 
 
+
+try:
+    pen = Thing("Ручка", 10, "Масляна ручка, дуже добре пише", [20, "g"], 153)
+    perfume = Thing("Духи", 120, "А пахне, наче газовий гігант Юпітер", [100, "g"], 31)
+    mazda6 =Thing("Мазда 6", 100000, "Мазда 6 150 к.с.", [1578, "kg"], 5)
+    pencil = Thing("Олівець", 0, "Звичайний олівець B2", [20, "g"], 20)
+except Exception as err:
+    print(err)
     
+
+
+"""
+print(My_shop.get_all())
+print(pen.get_cost())
+print(perfume.description)
+print(My_shop.all_thing[0].cost)
+print(pen)
+"""
 
 
 
@@ -144,7 +150,7 @@ buyer2 = Buyer(["Іваненко", "Іван", "Степанович"], "+38099
 buyer3 = Buyer(["Чепурна", "Оксана", "Василівна"], "0501255345")
 
 
-
+"""
 #Перевірка
 print(buyer1.to_purchase(pen))
 print(buyer1.to_purchase(pen))
@@ -166,12 +172,7 @@ print(buyer2.to_purchase(perfume))
 print(buyer2.to_purchase(perfume))
 print(buyer2.to_buy())
 print(f"Мої гроші - {My_shop.my_money}")
-
-
-
-
-
-
+"""
 
 
 
