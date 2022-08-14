@@ -1,0 +1,2 @@
+MAX_STUDENTS = 10
+LOGGING_FILE = "log.log"
