@@ -5,8 +5,9 @@ import math
 
 class Rational:
     def __init__(self, u, d):
-        self.u = u
-        self.d = d
+        if isinstance(u|d, int|float) :
+            self.u = u
+            self.d = d
 
     def __str__(self):
         return f"{self.u}/{self.d}"
@@ -49,7 +50,7 @@ class Rational:
 
 
         
-"""
+
 
 
 r1 = Rational(2,5)
@@ -94,7 +95,7 @@ print(Rational(13,35)!=Rational(17,35))
 
 
 
-"""
+
 
 
 
