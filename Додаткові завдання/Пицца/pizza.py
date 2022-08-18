@@ -75,10 +75,6 @@ class Pizza:
             return tmp/2
         return round(tmp)
 
-
-    def __add__(self, other:Product):
-        if isinstance(other, Product):
-            return Pizza(self.dough, self.prod, other)
             
         
 #Запись пиццы на каждый день недели
