@@ -4,13 +4,26 @@ import settings
 
 
 class Ticket:
+    """
+    Класс Ticket
+
+    Переменные класса:
+
+    name: Имя, на которое записан билет
+
+    date: Дата мероприятия
+
+    cost: Расчетная переменная, если > 60 дней - скидка до 0.4 от стоимости, если < 10 дней - 110% грн.
+
+    dis_stud: Входящая переменная, отвечает за проверку, нужно ли покупателю студенческий дисконт
+    """
     def __init__(self, name:str, date:"dd.mm.yyyy", dis_stud = False):
         self.name = name
         self.date = date
         if not dis_stud:
-            self.cost = settings.COST_TICKET * self.check_discont()
+            self.cost = round(settings.COST_TICKET * self.check_discont())
         else:
-            self.cost = settings.COST_TICKET * settings.DISCONT_STUD
+            self.cost = round(settings.COST_TICKET * settings.DISCONT_STUD)
         
 
     def __str__(self):
