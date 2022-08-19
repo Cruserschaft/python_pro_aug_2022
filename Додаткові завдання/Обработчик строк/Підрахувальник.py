@@ -12,8 +12,13 @@ class File:
 
 
     def readlines(self):
-        with open(self.file, "r", encoding = "utf-8") as tmp:
-            return "".join(map(str,tmp.readlines()))
+        try:
+            with open(self.file, "r", encoding = "utf-8") as tmp:
+                return "".join(map(str,tmp.readlines()))
+        except Exception as err:
+            return f"Error {err}"
+            
+            
 
 
     def amount_words(self):

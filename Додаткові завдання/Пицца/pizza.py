@@ -78,14 +78,14 @@ class Pizza:
             
         
 #Запись пиццы на каждый день недели
-today_pizza1 = Pizza(dough, cheese, cheese, cheese, today = True)
-today_pizza2 = Pizza(dough, cheese, meat, pineapple, tomato, today = True)
-today_pizza3 = Pizza(dough_cheese, cheese, cheese, pineapple, potato, today = True)
-today_pizza4 = Pizza(dough, apple, pineapple, cheese, fish, today = True)
-today_pizza5 = Pizza(dough_cheese, fish, cheese, cheese, today = True)
-today_pizza6 = Pizza(dough, apple, meat, fish, potato, today = True)
-today_pizza7 = Pizza(dough_cheese, pineapple, fish, today = True)
-today_pizzas = [today_pizza1, today_pizza2, today_pizza3, today_pizza4, today_pizza5, today_pizza6, today_pizza7]
+today_pizzas = [Pizza(dough, cheese, cheese, cheese, today = True),
+                Pizza(dough, cheese, meat, pineapple, tomato, today = True),
+                Pizza(dough_cheese, cheese, cheese, pineapple, potato, today = True),
+                Pizza(dough, apple, pineapple, cheese, fish, today = True),
+                Pizza(dough_cheese, fish, cheese, cheese, today = True),
+                Pizza(dough, apple, meat, fish, potato, today = True),
+                Pizza(dough_cheese, pineapple, fish, today = True)
+                ]
 
 
 def get_me_today_pizza():
