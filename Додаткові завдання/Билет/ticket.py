@@ -13,7 +13,7 @@ class RegularTicket:
 
     date: Дата мероприятия
 
-    cost: Расчетная переменная, если > 60 дней - скидка до 0.4 от стоимости, если < 10 дней - 110% грн.
+    cost: Цена билета
 
     dis_stud: Входящая переменная, отвечает за проверку, нужно ли покупателю студенческий дисконт
     """
@@ -40,6 +40,7 @@ class RegularTicket:
         tmp = datetime.now()
         return f"{self.name[-1].upper()}{self.name[0].upper()}{random.randint(1,9)}{tmp.strftime('%m')}{random.randint(1,9)}{tmp.strftime('%d')}"
 
+    
 class StudTicket(RegularTicket):
     def __init__(self, name:str, date:"dd.mm.yyyy"):
         super().__init__(name, date)
