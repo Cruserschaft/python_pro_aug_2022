@@ -2,7 +2,7 @@ import settings
 import logging
 
 
-logger = logging.getLogger("mini_shop")
+logger = logging.getLogger("students")
 FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logger.setLevel(logging.DEBUG)
 sh = logging.StreamHandler()

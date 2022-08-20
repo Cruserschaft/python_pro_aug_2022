@@ -1,31 +1,12 @@
 import sqlite3
 import random
 import settings
+from person import Person
 from logger import *
 
 
 con = sqlite3.connect("sqlite.db")
 cursor = con.cursor()
-
-
-class Person:
-    """
-    Має типи даних:
-    name: Ім'я
-    subname: Прізвище
-    parent: Ім'я по-батькові
-    birthday: День нарождення
-
-    """
-
-    
-    def __init__(self, name:str, subname:str, parent:str, birthday:str):
-        self.name = name
-        self.subname = subname
-        self.birthday = birthday
-
-    def __str__(self):
-        return f"Тип: Людина\nІм'я: {self.name}\nПрізвище: {self.subname}"
 
 
 
@@ -108,30 +89,6 @@ class Group:
 
 
 
-
-a = Group("group2")
-#print(a.get_all())
-#print(a.find("Лютий"))
-#print(a.find("ААААААААААААА"))
-#a.del_stud("Лютий")
-#print(a.get_all())
-
-
-#a.add_stud("Олексій", "Вишневський", "Олександрович", "03.02.1896")
-#print(a.find("Вишневський").name)
-#print(a.get_all())
-
-
-
-#b = Group("group1")
-#print(b.get_all())
-#print(b.find("Деркач"))
-
-
-a.del_stud("Забуга")
-a.add_stud("Василь", "Серпень", "Олекційович", "22.01.1978")
-a.add_stud("Олексій", "Вишневський", "Олександрович", "03.02.1896")
-print(a.get_all())
 
 
 
