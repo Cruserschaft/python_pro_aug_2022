@@ -35,7 +35,7 @@ class Thing:
         My_shop.all_thing.append(self)
 
     def __str__(self):
-        return f"{self.name}:{self.description}"
+        return f"{self.name}"
 
     def get_cost(self):
         return f"Ціна на {self.name} - {self.cost} гривень"
@@ -45,63 +45,32 @@ class Thing:
 
 class Buyer:
 
-    def __init__(self, pib:list, phone_number:str, buyer_id = None, purchases = {}):
+    def __init__(self, pib:list, phone_number:str, buyer_id = None):
         self.subname = pib[0]
         self.name = pib[1]
         self.patr = pib[2]
         self.phone_number = phone_number
         self.phone_number = self._validate_phone_number(self.phone_number)
         self.buyer_id = self.name[0] + self.subname + self.phone_number[-4:]
-        self.purchases = purchases
+        self.purchases = Cart()
 
-
+    def __str__(self):
+        return f"{self.name} {self.subname}\n{self.buyer_id}\n{self.purchases}"
 
     def to_purchase(self, item):
-        for i in My_shop.all_thing:
-            if i.amount==0:
-                return f"Вибачте, торвар закінчився"
-            i.amount-=1
+        self.purchases.add_item(item)
+        
 
-            if len(self.purchases) == 0:
-                self.purchases[item] = 1
-                return f"{item.name} занесено до кошика"
-
-            else:
-                if item in self.purchases:
-                    self.purchases[item]+=1
-                    return f"{item.name} занесено до кошика"
-                else:
-                    self.purchases[item] = 1
-                    return f"{item.name} занесено до кошика"
-
-                    
-                
-            
+                     
     def to_buy(self):
-        res = f"Вы придбали:\n"
-        all_cost = 0
-        for i in self.purchases:
-            all_cost+=i.cost*self.purchases[i]
-            res+=(f"{i.name} - {self.purchases[i]} шт.\n")
-        res+=(f"Загальна вартість - {all_cost}\n")
-        res+=(f"Зверніться в найближче відділення і укажіть свій ID: {self.buyer_id}")
-        My_shop.my_money+=all_cost
-        return res
+        My_shop.my_money += self.purchases.get_all("cost")
+        logger.info(f"{self.name} {self.subname} придбав {self.get_all_purchases()}")
+        return f"Ви придбали: \n{self.get_all_purchases()}\nЗверніться в найближче відділення і укажіть свій ID: {self.buyer_id}"
         
             
-        
 
     def get_all_purchases(self):
-        all_cost = 0
-        if len(self.purchases)==0:
-            return f"У вас нет покупок"
-        
-        for i in self.purchases:
-            all_cost+=i.cost*self.purchases[i]
-            return f"{i.name} - {self.purchases[i]} шт."
-        return f"Загальна вартість - {all_cost}"
-        
-
+        return self.purchases.get_all()
         
 
     def _validate_phone_number(self, phone_number):
@@ -120,7 +89,92 @@ class Buyer:
     def _error_phone_number(self):
         print(f"Введіть правильно номер телефону")
 
+
+
+
+class Cart:
+    def __init__(self):
+        self.purchases = {}
+
+    def __str__(self):
+        tmp = ""
+        for i in self.purchases:
+            tmp+=f"\n{i.name}: {self.purchases[i]}"
+        return tmp
+
+
+    def add_item(self, item: Thing):
+        for i in My_shop.all_thing:
+            if i.amount==0:
+                return f"Вибачте, торвар закінчився"
+            i.amount-=1
+
+            if len(self.purchases) == 0:
+                self.purchases[item] = 1
+                return f"{item.name} занесено до кошика"
+
+            else:
+                if item in self.purchases:
+                    self.purchases[item]+=1
+                    return f"{item.name} занесено до кошика"
+                else:
+                    self.purchases[item] = 1
+                    return f"{item.name} занесено до кошика"
+                
+    def __len__(self):
+        return len(self.purchases)
+
     
+    def __getitem__(self, item):
+        if isinstance(item, int):
+            return list(self.purchases.keys())[item]
+
+        if isinstance(item, slice):
+            return "\n".join(map(str, list(self.purchases.keys())[item]))
+
+    def __iter__(self):
+        return CartIter(list(self.purchases.keys()))
+
+    def get_all(self, name = "all"):
+        all_cost = 0
+        if len(self.purchases)==0:
+            return f"У вас нет покупок"
+        
+        for i in self.purchases:
+            all_cost+=i.cost*self.purchases[i]
+
+        if name == "cost":
+            return all_cost
+        return f"{str(self)}\nЗагальна вартість - {all_cost}"
+
+
+
+
+class CartIter:
+
+    def __init__(self, wrapped):
+        self.wrapped = wrapped
+        self.index = 0
+
+    def __str__(self):
+        return "\n".join(map(str, self.wrapped))
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index < len(self.wrapped):
+            self.index += 1
+            return self.wrapped[self.index - 1]
+        raise StopIteration
+
+
+
+
+
+
+
+
 
 
 
@@ -128,69 +182,82 @@ try:
     pen = Thing("Ручка", 10, "Масляна ручка, дуже добре пише", [20, "g"], 153)
     perfume = Thing("Духи", 120, "А пахне, наче газовий гігант Юпітер", [100, "g"], 31)
     mazda6 =Thing("Мазда 6", 100000, "Мазда 6 150 к.с.", [1578, "kg"], 5)
-    pencil = Thing("Олівець", 0, "Звичайний олівець B2", [20, "g"], 20)
+    pencil = Thing("Олівець", 7, "Звичайний олівець B2", [20, "g"], 20)
 except Exception as err:
     print(err)
     
-
-
-"""
-print(My_shop.get_all())
-print(pen.get_cost())
-print(perfume.description)
-print(My_shop.all_thing[0].cost)
-print(pen)
-"""
-
-
-
 
 buyer1 = Buyer(["Василенко", "Петро", "Олексійович"], "0935678456")
 buyer2 = Buyer(["Іваненко", "Іван", "Степанович"], "+380993135745")
 buyer3 = Buyer(["Чепурна", "Оксана", "Василівна"], "0501255345")
 
-
-"""
-#Перевірка
-print(buyer1.to_purchase(pen))
-print(buyer1.to_purchase(pen))
-print(buyer1.to_purchase(pen))
-print(buyer1.to_purchase(perfume))
-print(buyer1.to_purchase(pen))
-print(buyer1.get_all_purchases())
-print(buyer1.to_buy())
-print(f"Мої гроші - {My_shop.my_money}")
-
-
-
-
-
-print(buyer2.to_purchase(perfume))
-print(buyer2.to_purchase(perfume))
-print(buyer2.to_purchase(perfume))
-print(buyer2.to_purchase(perfume))
-print(buyer2.to_purchase(perfume))
-print(buyer2.to_buy())
-print(f"Мої гроші - {My_shop.my_money}")
-"""
-
-
-
-
-
-
-
-
-
-
-
-
+##print(My_shop.get_all())
+##print(pen.get_cost())
+##print(perfume.description)
+##print(My_shop.all_thing[0].cost)
+##print(pen)
+##
+##
+##
+##
+###Перевірка
+##print(buyer1.to_purchase(pen))
+##print(buyer1.to_purchase(pen))
+##print(buyer1.to_purchase(pen))
+##print(buyer1.to_purchase(perfume))
+##print(buyer1.to_purchase(pen))
+##print(buyer1.get_all_purchases())
+##print(buyer1.to_buy())
+##print(f"Мої гроші - {My_shop.my_money}")
+##
+##
+##
+##
+##
+##print(buyer2.to_purchase(perfume))
+##print(buyer2.to_purchase(perfume))
+##print(buyer2.to_purchase(perfume))
+##print(buyer2.to_purchase(perfume))
+##print(buyer2.to_purchase(perfume))
+##print(buyer2.to_buy())
+##print(f"Мої гроші - {My_shop.my_money}")
+##
+##
+##
+##
 
 
 
 
 
-
-
-
+###Перевірка ітератора
+##
+##buyer1.to_purchase(pen)
+##buyer1.to_purchase(pen)
+##buyer1.to_purchase(pen)
+##buyer1.to_purchase(perfume)
+##buyer1.to_purchase(perfume)
+##buyer1.to_purchase(mazda6)
+##buyer1.to_purchase(pencil)
+##buyer1.to_purchase(pencil)
+##buyer1.get_all_purchases()
+##
+##
+##print(buyer1)
+##
+##print(len(buyer1.purchases))
+##print(buyer1.purchases[1])
+##print(buyer1.purchases[:3])
+##
+##it = iter(buyer1.purchases)
+##
+##
+##print(it)
+##
+##while True:
+##    try:
+##        item = next(it)
+##        print(item)
+##    except StopIteration:
+##        break
 

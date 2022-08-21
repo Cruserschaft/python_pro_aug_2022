@@ -5,3 +5,9 @@
 2022-08-14 17:34:53,801 - mini_shop - WARNING - Неправильная ціна товару Олівець
 2022-08-14 17:35:37,943 - mini_shop - WARNING - Неправильная ціна товару Олівець
 2022-08-14 17:35:52,880 - mini_shop - WARNING - Неправильная ціна товару Олівець
+2022-08-21 13:01:48,850 - mini_shop - WARNING - Неправильная ціна товару Олівець
+2022-08-21 14:14:16,733 - mini_shop - INFO - Іван Іваненко придбав <bound method Buyer.get_all_purchases of <__main__.Buyer object at 0x00000278434DCB20>>
+2022-08-21 14:14:24,614 - mini_shop - INFO - Іван Іваненко придбав <bound method Buyer.get_all_purchases of <__main__.Buyer object at 0x00000222E578CB20>>
+2022-08-21 14:14:54,522 - mini_shop - INFO - Іван Іваненко придбав 
+Духи: 5
+Загальна вартість - 600
