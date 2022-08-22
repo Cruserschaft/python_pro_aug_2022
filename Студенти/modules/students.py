@@ -44,7 +44,19 @@ class Group:
         self.students_list = []
         self.get_stud(group)
         self.group_name = group
-        
+
+    def __len__(self):
+        return len(self.students_list)
+
+    def __getitem__(self, other):
+        if isinstance(other, int):
+            return self.students_list[other]
+        if isinstance(other, slice):
+            return "\n".join(map(str, self.students_list[other]))
+
+    def __iter__(self):
+        return GroupIter(self.students_list)
+
 
     def get_stud(self, group:str):
         list_stud = cursor.execute(f"SELECT * FROM {group}").fetchall()
@@ -83,7 +95,24 @@ class Group:
             logger.warning(f"Неможливо додати студента. Кількість місць - {settings.MAX_STUDENTS}")
         
                 
-              
+
+class GroupIter:
+    def __init__(self, wrapped):
+        self.wrapped = wrapped
+        self.index = 0
+
+    def __str__(self):
+        return "\n".join(map(str, self.wrapped))
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index < len(self.wrapped):
+            self.index += 1
+            return self.wrapped[self.index - 1]
+        raise StopIteration
+
         
 
 
