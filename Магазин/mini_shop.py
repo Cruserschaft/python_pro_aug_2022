@@ -4,7 +4,7 @@ from logger import *
 
 class Shop:
     def __init__(self, my_money:int):
-        self.my_money = my_money
+        self._my_money = my_money
         self.all_thing = []
 
 
@@ -16,9 +16,22 @@ class Shop:
                 result+= f"{i.name} - {i.amount} шт.\n"
 
             return result
+    @property
+    def my_money(self):
+        return self._my_money
+
+    @my_money.setter
+    def my_money(self, value):
+        if isinstance(value, int|float):
+            logger.info(f"Начислено {value} грн.")
+            self._my_money = value
 
 
 My_shop = Shop(0)
+
+#Проверка gettera and settera
+#print(My_shop.my_money)
+#My_shop.my_money = 2
 
 
 
@@ -37,8 +50,13 @@ class Thing:
     def __str__(self):
         return f"{self.name}"
 
+
     def get_cost(self):
         return f"Ціна на {self.name} - {self.cost} гривень"
+
+
+
+
 
 
 
@@ -183,6 +201,7 @@ try:
     perfume = Thing("Духи", 120, "А пахне, наче газовий гігант Юпітер", [100, "g"], 31)
     mazda6 =Thing("Мазда 6", 100000, "Мазда 6 150 к.с.", [1578, "kg"], 5)
     pencil = Thing("Олівець", 7, "Звичайний олівець B2", [20, "g"], 20)
+
 except Exception as err:
     print(err)
     
@@ -190,6 +209,9 @@ except Exception as err:
 buyer1 = Buyer(["Василенко", "Петро", "Олексійович"], "0935678456")
 buyer2 = Buyer(["Іваненко", "Іван", "Степанович"], "+380993135745")
 buyer3 = Buyer(["Чепурна", "Оксана", "Василівна"], "0501255345")
+
+
+
 
 ##print(My_shop.get_all())
 ##print(pen.get_cost())
