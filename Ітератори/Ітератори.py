@@ -8,17 +8,19 @@
 stop = 100
 def geom_progression(value):
     if isinstance(value, int|float):
-        return iter([i * value for i in range(1, stop)])
+        return (i * value for i in range(1, stop))
 
 
 
 x = geom_progression(3)
+print(x)
 print(next(x))
 print(next(x))
 print(next(x))
 print(next(x))
 
 y = geom_progression(17.5)
+print(x)
 print(next(y))
 print(next(y))
 print(next(y))
@@ -32,15 +34,13 @@ print(next(y))
 def my_range(start, stop):
     if not isinstance(start, int) and not isinstance(stop, int):
         raise ValueError("Must be integer")
-    res = []
-    i = 0
-    while stop-start > i:
-        res.append(start+i)
-        i+=1
-    return res
+    return (i for i in range(start, stop))
 
 x = my_range(10, 20)
 print(x)
+print(next(x))
+print(next(x))
+print(next(x))
 
 
 #3 Завдання
@@ -69,9 +69,14 @@ for i in x:
 ##быть заполнен кубами чисел от 2 и до указанной вами величины.
 
 def sq_list(value):
-    return [i*i for i in range(1, value)]
+    return (i*i for i in range(1, value))
 
 x = sq_list(30)
 print(x)
+print(next(x))
+print(next(x))
+print(next(x))
+print(next(x))
+print(next(x))
 
 
