@@ -1,3 +1,51 @@
+html {
+    background-color: black;
+    color: mediumseagreen;
+    font-size: 20px;
+}
+
+
 h1 {
     color: aqua;
+}
+
+p[class="paragraph1"] {
+    color: brown;
+}
+
+.parent {
+    font-size: 30px;
+}
+
+.test {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+}
+.test1 {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-color: darkred;
+}
+.test2 {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-color: green;
+}
+
+.test3 {
+    width: 50%;
+    height: 100px;
+    background-color: gold;
+}
+
+.test10 {
+    font-size: 2rem;
+}
+
+.test11 {
+    font-size: 1rem;
 }
