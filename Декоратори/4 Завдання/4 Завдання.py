@@ -7,9 +7,6 @@ import os
 
 def Timer(num, file):
     def wrapped(func):
-        if not os.path.exists(file):
-            with open(file, "w"):
-                pass
         with open(file, "a") as f:
             for i in range(num):
                 tmp = time.time()

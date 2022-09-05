@@ -10,9 +10,6 @@ def to_file(func):
     def get_func(*args):
         tmp = func(*args)
         file = str(func).split()[1].split(".")[0]
-        if not os.path.exists(f"{file}.txt"):
-            with open(f"{file}.txt", "w"):
-                pass
         with open(f"{file}.txt", "a") as f:
             f.write(f"{tmp}\n")
 
