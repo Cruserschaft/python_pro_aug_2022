@@ -24,6 +24,7 @@ class Hello:
     def __str__(self):
         return " - Hello!"
 
+
 @decorator("Ivan")
 class Bye:
     def __str__(self):

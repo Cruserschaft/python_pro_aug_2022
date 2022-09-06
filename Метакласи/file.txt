@@ -1,0 +1,6 @@
+Circle:
+ __module__, __init__, __str__, __dict__, __weakref__, __doc__
+Circle:
+ __module__, __init__, __str__, __dict__, __weakref__, __doc__
+Box:
+ __module__, __init__, __str__, __add__, __dict__, __weakref__, __doc__
