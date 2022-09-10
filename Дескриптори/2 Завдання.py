@@ -9,15 +9,19 @@ class Box:
         self.y = y
         self.z = z
 
+
+    def __get__(self, instance, owner):
+        return self.x * self.y * self.z
+
     def __setattr__(self, key, value):
         if not isinstance(value, int):
             raise TypeError("Coords must be integer")
         self.__dict__[key] = value
 
     def __str__(self):
-        return f"{self.x}, {self.y}, {self.z}"
+        return f"{self.x * self.y * self.z}"
 
 b = Box(1, 2, 3)
 print(b)
 
-c = Box("hu", 3, 5)
+#c = Box("hu", 3, 5)

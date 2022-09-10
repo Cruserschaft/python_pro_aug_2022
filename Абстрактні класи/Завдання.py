@@ -12,11 +12,8 @@ import abc
 
 class Validator(abc.ABC):
     @abc.abstractmethod
-    def validate(self, number):
-        for i in range(2, (self.number // 2) + 1):
-            if self.number % i == 0:
-                return False
-        return True
+    def validate(self):
+        pass
 
 
 class Rational(Validator):
@@ -24,14 +21,17 @@ class Rational(Validator):
         self.number = number
 
     def validate(self):
-        return super().validate(self.number)
+        for i in range(2, (self.number // 2) + 1):
+            if self.number % i == 0:
+                return False
+        return True
 
 
-class Rational2:
+class Rational2(Validator):
     def __init__(self, number):
         self.number = number
 
-    def validate(self, number):
+    def validate(self):
         for i in range(2, (self.number // 2) + 1):
             if self.number % i == 0:
                 return False
@@ -42,7 +42,7 @@ class Rational2:
 r = Rational(10)
 print(r.validate())
 r2 = Rational(3)
-print(r2.validate())
+print(r2.validate)
 
 
 print("*"*20)
