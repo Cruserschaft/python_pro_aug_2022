@@ -37,6 +37,7 @@ class Box:
 
 b1 = Box(1, 2, 3)
 print(b1)
+print(b1.x, b1.y, b1.z)
 
 
 #c = Box("hu", 3, 5)
