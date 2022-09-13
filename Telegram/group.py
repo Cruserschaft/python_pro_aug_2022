@@ -5,16 +5,7 @@ import config
 
 with sqlite3.connect("smokers.db") as con:
     cursor = con.cursor()
-    cursor.execute("""CREATE TABLE IF NOT EXISTS person(name, id, rights)""")
-
-
-def sq_search(val):
-    with sqlite3.connect("smokers.db") as con:
-        cursor = con.cursor()
-        return bool(len(cursor.execute("SELECT * FROM person WHERE id IS (?)", (val,)).fetchall()))
-
-def sq_register(id, rand):
-    pass
+    cursor.execute("""CREATE TABLE IF NOT EXISTS person(name, person_id, group_id, rights)""")
 
 
 def rand_id():
@@ -25,9 +16,23 @@ def rand_id():
     return res
 
 
-def create_group(id):
-    if not sq_search(id):
-        group_id = rand_id()
-        sq_register(id, group_id)
-        return group_id
-    return "Увы, вы состоите в другой групе"
+def sq_search(val):
+    with sqlite3.connect("smokers.db") as con:
+        cursor = con.cursor()
+        return bool(len(cursor.execute("SELECT * FROM person WHERE person_id IS (?)", (val,)).fetchall()))
+
+def sq_search_byID(val):
+    with sqlite3.connect("smokers.db") as con:
+        cursor = con.cursor()
+        return bool(len(cursor.execute("SELECT * FROM person WHERE group_id IS (?)", (val,)).fetchall()))
+
+def register_user(id, id_group, name):
+    pass
+
+
+def create_group(id, name):
+    tmp = rand_id()
+    with sqlite3.connect("smokers.db") as con:
+        cursor = con.cursor()
+        cursor.execute("INSERT INTO person VALUES (?,?,?,?)", (name, id, tmp, "admin"))
+    return tmp

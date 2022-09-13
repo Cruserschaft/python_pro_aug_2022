@@ -16,13 +16,31 @@ def start(message):
     bot.send_message(message.chat.id, "Добро пожаловать!", reply_markup=markup)
 
 
+register_group = False
 @bot.message_handler(content_types=["text"])
 def main(message):
+    global register_group
     if message.text == config.ENTER_GROUP:
         pass
-    elif message.text == config.CREATE_GROUP:
-        bot.send_message(message.chat.id, "Группа создана, добавьте друзей с помощью следующего личного идентификатора и войдите сами")
-        bot.send_message(message.chat.id, group.create_group(message.chat.id))
+
+
+
+    elif message.text == config.CREATE_GROUP or register_group:
+        if group.sq_search(message.chat.id):
+            bot.send_message(message.chat.id, "Вы уже состоите в группе")
+            return
+
+        if not register_group:
+            bot.send_message(message.chat.id, "Введите своё имя", reply_markup=None)
+            register_group = True
+            return
+
+        bot.send_message(message.chat.id, "Проходит регистрация, подождите...")
+        bot.send_message(message.chat.id, group.create_group(message.chat.id, message.text))
+        register_group = False
+
+
+
 
 
 bot.polling(none_stop=True)
