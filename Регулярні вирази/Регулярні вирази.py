@@ -38,7 +38,7 @@ def mail_verify(val):
     if len(re.findall(r"[-_]", tmp)) > 1 or re.search(r"^[-_]", tmp):
         return False
 
-    if re.findall(r"[^a-zA-Z0-9-@.]", tmp) or len(re.findall(r"@", val)) > 1:
+    if re.findall(r"[^a-zA-Z0-9-.]", tmp) or len(re.findall(r"@", val)) > 1:
         return False
 
     return True
