@@ -16,18 +16,34 @@ def rand_id():
     return res
 
 
-def sq_search(val):
+def sq_search(val, ret_users=False, ret_id_group=False):
     with sqlite3.connect("smokers.db") as con:
         cursor = con.cursor()
-        return bool(len(cursor.execute("SELECT * FROM person WHERE person_id IS (?)", (val,)).fetchall()))
+        if not ret_users and not ret_id_group:
+            return bool(len(cursor.execute("SELECT * FROM person WHERE person_id IS (?)", (val,)).fetchall()))
+        tmp = cursor.execute("SELECT group_id FROM person WHERE person_id IS (?)", (val,)).fetchone()[0]
+        if ret_id_group:
+            return tmp
+        tmp2 = cursor.execute("SELECT person_id FROM person WHERE group_id IS (?)", (tmp,)).fetchall()
+        return [x[0] for index, x in enumerate(tmp2)]
 
-def sq_search_byID(val):
+
+def sq_search_by_grp_id(val, ret_mode=False):
     with sqlite3.connect("smokers.db") as con:
         cursor = con.cursor()
         return bool(len(cursor.execute("SELECT * FROM person WHERE group_id IS (?)", (val,)).fetchall()))
 
+
+def sq_remove(val):
+    with sqlite3.connect("smokers.db") as con:
+        cursor = con.cursor()
+        cursor.execute("DELETE FROM person WHERE person_id IS (?)", (val,))
+
+
 def register_user(id, id_group, name):
-    pass
+    with sqlite3.connect("smokers.db") as con:
+        cursor = con.cursor()
+        cursor.execute("""INSERT INTO person VALUES (?,?,?,?)""", (name, id, id_group, "user"))
 
 
 def create_group(id, name):
@@ -36,3 +52,4 @@ def create_group(id, name):
         cursor = con.cursor()
         cursor.execute("INSERT INTO person VALUES (?,?,?,?)", (name, id, tmp, "admin"))
     return tmp
+
