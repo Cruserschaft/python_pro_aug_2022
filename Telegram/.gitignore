@@ -1,2 +1,2 @@
-*.db
+/smokers
 /token_val.py
