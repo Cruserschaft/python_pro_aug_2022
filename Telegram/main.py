@@ -2,7 +2,6 @@ import telebot
 import config
 from telebot import types
 import group
-import token_val
 from flask import Flask, request
 import os
 
@@ -10,7 +9,6 @@ import os
 app = Flask(__name__)
 TOKEN = os.environ.get("TOKEN")
 bot = telebot.TeleBot(TOKEN)
-
 
 
 @bot.message_handler(commands=["start"])
