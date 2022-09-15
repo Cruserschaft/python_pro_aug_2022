@@ -3,8 +3,14 @@ import config
 from telebot import types
 import group
 import token_val
+from flask import Flask, request
+import os
 
-bot = telebot.TeleBot(token_val.TOKEN)
+
+app = Flask(__name__)
+TOKEN = os.environ.get("TOKEN")
+bot = telebot.TeleBot(TOKEN)
+
 
 
 @bot.message_handler(commands=["start"])
@@ -45,6 +51,7 @@ def leave_group(message):
     group.sq_remove(message.chat.id)
     bot.send_message(message.chat.id, "Вы удалены из группы")
 
+
 @bot.message_handler(commands=['help'])
 def docs(message):
     tmp = """
@@ -54,6 +61,7 @@ def docs(message):
 /exit - Выйти из группы
     """
     bot.send_message(message.chat.id, tmp)
+
 
 @bot.message_handler(commands=['id'])
 def id_group(message):
@@ -72,6 +80,7 @@ enter_group = False
 enter_group_name = False
 tmp_grp_id = None
 
+
 @bot.message_handler(content_types=["text"])
 def main(message):
     global register_group
@@ -87,7 +96,6 @@ def main(message):
                 bot.send_message(i, message.text)
             except:
                 pass
-
 
     if message.text == config.ENTER_GROUP or enter_group or enter_group_name:
         if group.sq_search(message.chat.id):
@@ -133,4 +141,16 @@ def main(message):
         register_group = False
 
 
-bot.polling(none_stop=True)
+@app.route("/" + TOKEN, methods=["POST"])
+def get_message():
+    bot.process_new_messages([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    return "Python Telegram Bot", 200
+
+@app.route("/")
+def main():
+    bot.remove_webhook()
+    bot.set_webhook(url="https://poshli-kurit-bot.herokuapp.com/"+TOKEN)
+    return "Python Telegram Bot", 200
+
+if __name__ == "main":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

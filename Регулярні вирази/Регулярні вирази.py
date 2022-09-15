@@ -4,9 +4,9 @@ import re
 # следует одна или более букв b, за которой одна r. Учитывать верхний и нижний регистр.
 print(1, "*" * 20)
 
-st = "dgfeagkoaep'geagRbbbraker'golw m'g;pawrmasdbaew 01r i910irbbbbbbbbr' a"
+st = "dgfeagkoaep'geagRbbbraker'golw m'g;pawrmasdbaew 01r i910irbbbbbbbbr'rBBr a"
 
-search = re.findall(r"[Rr]b{1,}[Rr]", st)
+search = re.findall(r"[Rr][bB]{1,}[Rr]", st)
 print(search)
 
 
