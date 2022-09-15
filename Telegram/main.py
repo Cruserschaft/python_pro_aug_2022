@@ -141,16 +141,18 @@ def main(message):
         register_group = False
 
 
-@app.route("/" + TOKEN, methods=["POST"])
+@app.route("/" + str(TOKEN), methods=["POST"])
 def get_message():
     bot.process_new_messages([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "Python Telegram Bot", 200
+
 
 @app.route("/")
 def main():
     bot.remove_webhook()
     bot.set_webhook(url="https://poshli-kurit-bot.herokuapp.com/"+TOKEN)
     return "Python Telegram Bot", 200
+
 
 if __name__ == "main":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
